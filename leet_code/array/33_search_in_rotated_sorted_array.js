@@ -34,3 +34,26 @@ var search = function (nums, target) {
   }
   return -1;
 };
+
+//recursive
+// var search = function (nums, target) {
+  const search = (nums, target, l, r) => {
+    if (l > r) {
+      return -1;
+    }
+    let mid = ~~((l + r) / 2);
+    if (nums[mid] === target) {
+      return mid;
+    }
+    if (nums[l] <= nums[mid]) {
+      return nums[l] <= target && target <= nums[mid]
+        ? search(nums, target, l, mid - 1)
+        : search(nums, target, mid + 1, r);
+    } else {
+      return nums[mid] <= target && target <= nums[r]
+        ? search(nums, target, mid + 1, r)
+        : search(nums, target, l, mid - 1);
+    }
+  };
+  return search(nums, target, 0, nums.length - 1);
+// };
